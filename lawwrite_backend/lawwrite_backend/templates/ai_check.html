@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}AI tekshiruv — LawWrite{% endblock %}
+
+{% block content %}
+<section class="auth-form" style="max-width:600px;">
+    <h1>🤖 AI tekshiruv</h1>
+    <p style="text-align:center; color:var(--gray-dark);">Matningizni yozing, AI uni 5 mezon bo'yicha tekshirsin.</p>
+    
+    <form method="POST" action="{{ url_for('ai_check') }}">
+        <label for="text">Matn</label>
+        <textarea id="text" name="text" rows="6" style="width:100%; padding:12px; border-radius:8px; border:2px solid #e5e7eb; font-size:15px;"></textarea>
+        
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:16px;">
+            <i class="fas fa-robot"></i> Tekshirish
+        </button>
+    </form>
+</section>
+{% endblock %}

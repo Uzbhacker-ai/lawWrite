@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}LawWrite — Yuridik ingliz tili{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Yuridik ingliz tilini <br><span>amaliy yozish</span> orqali o'rganing</h1>
+    <p>Sun'iy intellekt yordamida hujjatlaringizni avtomatik tekshiring va baho oling.</p>
+    <a href="{{ url_for('courses') }}" class="btn-primary"><i class="fas fa-play"></i> Kurslarni ko'rish</a>
+</section>
+
+<section class="features-modern">
+    <div class="feature-card-modern" onclick="location.href='{{ url_for('courses') }}'">
+        <div class="feature-icon">📄</div>
+        <h3>5 xil hujjat</h3>
+        <p>Incident report, Witness statement, Prosecutor memorandum va boshqalar</p>
+        <span class="feature-arrow">→</span>
+    </div>
+    <div class="feature-card-modern" onclick="location.href='{{ url_for('ai_check') }}'">
+        <div class="feature-icon">🤖</div>
+        <h3>AI tekshiruv</h3>
+        <p>5 mezon bo'yicha avtomatik baholash va batafsil izohlar</p>
+        <span class="feature-arrow">→</span>
+    </div>
+    <div class="feature-card-modern" onclick="location.href='{{ url_for('dashboard') }}'">
+        <div class="feature-icon">📊</div>
+        <h3>Dashboard</h3>
+        <p>Talabalar progressini kuzating va natijalarni eksport qiling</p>
+        <span class="feature-arrow">→</span>
+    </div>
+    <div class="feature-card-modern" onclick="location.href='{{ url_for('dashboard') }}'">
+        <div class="feature-icon">🎓</div>
+        <h3>Sertifikat</h3>
+        <p>60% ball to'plaganlarga avtomatik PDF sertifikat</p>
+        <span class="feature-arrow">→</span>
+    </div>
+</section>
+
+<section class="courses-preview-modern">
+    <div class="section-header">
+        <h2>📚 Asosiy kurslar</h2>
+        <a href="{{ url_for('courses') }}" class="view-all">Barchasini ko'rish →</a>
+    </div>
+    <div class="course-list-modern">
+        {% for course in courses %}
+        <div class="course-card-modern" onclick="location.href='{{ url_for('course_detail', course_id=course.id) }}'">
+            <div class="course-card-header">
+                <span class="course-emoji">{{ course.icon }}</span>
+                <span class="course-level">{{ course.level }}</span>
+            </div>
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description[:80] }}...</p>
+            <div class="course-footer">
+                <span class="course-meta">📘 {{ course.terms|length }} termin</span>
+                <span class="course-meta">✍️ {{ course.tasks|length }} topshiriq</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} — Lug'at{% endblock %}
+
+{% block content %}
+<section class="course-detail">
+    <h1>📖 {{ course.title }} lug'ati</h1>
+    
+    <div class="term-search">
+        <input type="text" id="termSearch" placeholder="Terminni qidiring..." onkeyup="filterTerms()">
+    </div>
+    
+    <div class="term-list" id="termList">
+        {% for term in course.terms %}
+        <div class="term-item" id="term-{{ term.id }}">
+            <strong>{{ term.english }}</strong> — {{ term.uzbek }}
+            {% if term.definition %}
+                <p>{{ term.definition }}</p>
+            {% endif %}
+            {% if term.example %}
+                <p><em>Misol: {{ term.example }}</em></p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>Bu kursda hali terminlar mavjud emas.</p>
+        {% endfor %}
+    </div>
+    
+    <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Kursga qaytish
+    </a>
+</section>
+
+<script>
+function filterTerms() {
+    const input = document.getElementById('termSearch').value.toLowerCase();
+    const items = document.querySelectorAll('.term-item');
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(input) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

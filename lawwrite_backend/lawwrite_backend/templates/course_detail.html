@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} — LawWrite{% endblock %}
+
+{% block content %}
+<section class="course-detail">
+    <h1>{{ course.icon }} {{ course.title }}</h1>
+    <p class="level-badge">{{ course.level }} ({{ course.level_name }})</p>
+    <p class="course-description">{{ course.description }}</p>
+    
+    <div class="course-nav">
+        <a href="{{ url_for('course_terms', course_id=course.id) }}" class="btn-secondary">
+            <i class="fas fa-book-open"></i> Lug'atni ko'rish
+        </a>
+        <a href="{{ url_for('courses') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Kurslarga qaytish
+        </a>
+    </div>
+    
+    <h2>📝 Terminlar lug'ati</h2>
+    <div class="term-list">
+        {% for term in course.terms[:5] %}
+        <div class="term-item">
+            <strong>{{ term.english }}</strong> — {{ term.uzbek }}
+            {% if term.definition %}
+                <p>{{ term.definition }}</p>
+            {% endif %}
+            {% if term.example %}
+                <p><em>Misol: {{ term.example }}</em></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% if course.terms|length > 5 %}
+            <p><a href="{{ url_for('course_terms', course_id=course.id) }}">Barcha terminlarni ko'rish ({{ course.terms|length }} ta)</a></p>
+        {% endif %}
+    </div>
+    
+    <h2>✍️ Topshiriqlar</h2>
+{% for task in course.tasks %}
+<div class="task">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+    {% if task.sample %}
+    <div class="sample">
+        <pre>{{ task.sample }}</pre>
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="{{ url_for('complete_task', task_id=task.id) }}">
+        <input type="hidden" name="score" value="100">
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-check"></i> Topshiriqni bajarish
+        </button>
+    </form>
+</div>
+{% else %}
+<p>Bu kursda hali topshiriqlar mavjud emas.</p>
+{% endfor %}
+</section>
+{% endblock %}

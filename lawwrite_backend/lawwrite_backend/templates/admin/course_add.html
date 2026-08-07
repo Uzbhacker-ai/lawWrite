@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Yangi kurs — Admin{% endblock %}
+
+{% block content %}
+<section class="admin-panel">
+    <h1>📚 Yangi kurs qo'shish</h1>
+    <a href="{{ url_for('admin_courses') }}" class="btn-back"><i class="fas fa-arrow-left"></i> Kurslarga qaytish</a>
+    
+    <form method="POST" class="admin-form">
+        <label for="title">Kurs nomi</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="description">Tavsif</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+        
+        <label for="level">Daraja (A, B, C)</label>
+        <input type="text" id="level" name="level" placeholder="A, B yoki C" required>
+        
+        <label for="level_name">Daraja nomi (Oson, O'rta, Qiyin)</label>
+        <input type="text" id="level_name" name="level_name" placeholder="Oson, O'rta yoki Qiyin" required>
+        
+        <label for="icon">Ikona (📚, 🔍, ⚖️)</label>
+        <input type="text" id="icon" name="icon" value="📚">
+        
+        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Saqlash</button>
+    </form>
+</section>
+
+<style>
+.admin-form { max-width: 600px; margin: 20px 0; }
+.admin-form label { display: block; margin-top: 15px; font-weight: bold; }
+.admin-form input, .admin-form textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
+.admin-form textarea { resize: vertical; }
+</style>
+{% endblock %}

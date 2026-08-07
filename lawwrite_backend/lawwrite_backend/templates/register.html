@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Ro'yxatdan o'tish — LawWrite{% endblock %}
+
+{% block content %}
+<section class="auth-form">
+    <h1>📝 Ro'yxatdan o'tish</h1>
+    
+    <form method="POST" action="{{ url_for('register') }}">
+        <label for="fullname">To'liq ism</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Ismingizni kiriting" required>
+        
+        <label for="phone">Telefon raqam</label>
+        <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67" required>
+        
+        <label for="email">Elektron pochta</label>
+        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+        
+        <label for="password">Parol</label>
+        <input type="password" id="password" name="password" placeholder="6 ta belgidan kam bo'lmasin" required minlength="6">
+        
+        <label for="confirm_password">Parolni takrorlang</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Parolni qayta kiriting" required>
+        
+        <button type="submit" class="btn-primary">Ro'yxatdan o'tish</button>
+    </form>
+    
+    <p class="auth-link">Hisobingiz bormi? <a href="{{ url_for('login') }}">Kirish</a></p>
+</section>
+{% endblock %}
