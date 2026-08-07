@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LawWrite — Yuridik ingliz tili{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">⚖️ LawWrite</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Bosh sahifa</a></li>
+                <li><a href="{{ url_for('courses') }}"><i class="fas fa-book"></i> Kurslar</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    {% if current_user.is_admin %}
+                        <li><a href="{{ url_for('admin_index') }}" class="admin-link"><i class="fas fa-user-shield"></i> Admin</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('logout') }}" class="btn"><i class="fas fa-sign-out-alt"></i> Chiqish</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="btn"><i class="fas fa-sign-in-alt"></i> Kirish</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section"><h3>⚖️ LawWrite</h3><p>Yuridik ingliz tili platformasi</p></div>
+            <div class="footer-section"><h4>Manbalar</h4><ul><li>Cambridge Legal English</li><li>Oxford Professional English</li><li>Cornell Law Institute</li></ul></div>
+            <div class="footer-section"><h4>Bog'lanish</h4><p><i class="fas fa-envelope"></i> info@lawwrite.uz</p><p><i class="fas fa-phone"></i> +998 90 123 45 67</p></div>
+        </div>
+        <p class="copyright">© 2026 LawWrite. Barcha huquqlar himoyalangan.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

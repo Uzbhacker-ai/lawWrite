@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Qidiruv natijalari — LawWrite{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1>🔍 "{{ query }}" bo'yicha qidiruv</h1>
+</section>
+
+<section class="course-grid">
+    <div class="course-card" style="grid-column: 1 / -1;">
+        <h3>🔎 Natijalar</h3>
+        {% if terms %}
+            <ul>
+            {% for term in terms %}
+                <li>
+                    <strong>{{ term.english }}</strong> — {{ term.uzbek }}
+                    <br>
+                    <small>Kurs: {{ term.course.title }}</small>
+                    <a href="{{ url_for('course_detail', course_id=term.course.id) }}#term-{{ term.id }}">Ko'rish</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Hech qanday natija topilmadi.</p>
+        {% endif %}
+        <a href="{{ url_for('courses') }}" class="btn-back">⬅ Kurslarga qaytish</a>
+    </div>
+</section>
+{% endblock %}

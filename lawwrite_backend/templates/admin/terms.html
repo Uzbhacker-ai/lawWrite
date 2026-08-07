@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Terminlar — Admin{% endblock %}
+
+{% block content %}
+<section class="admin-panel">
+    <h1>📝 Terminlar</h1>
+    <a href="{{ url_for('admin_index') }}" class="btn-back"><i class="fas fa-arrow-left"></i> Admin panelga qaytish</a>
+    
+    <form method="POST" action="{{ url_for('admin_add_term') }}" class="admin-form">
+        <h3>Yangi termin qo'shish</h3>
+        
+        <label for="course_id">Kurs</label>
+        <select id="course_id" name="course_id" required>
+            {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.title }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="english">Inglizcha</label>
+        <input type="text" id="english" name="english" required>
+        
+        <label for="uzbek">O'zbekcha</label>
+        <input type="text" id="uzbek" name="uzbek" required>
+        
+        <label for="definition">Ta'rif</label>
+        <textarea id="definition" name="definition" rows="2"></textarea>
+        
+        <label for="example">Misol</label>
+        <textarea id="example" name="example" rows="2"></textarea>
+        
+        <button type="submit" class="btn-primary"><i class="fas fa-plus"></i> Qo'shish</button>
+    </form>
+    
+    <h3>Barcha terminlar</h3>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Inglizcha</th>
+                <th>O'zbekcha</th>
+                <th>Kurs</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for term in terms %}
+            <tr>
+                <td>{{ term.id }}</td>
+                <td>{{ term.english }}</td>
+                <td>{{ term.uzbek }}</td>
+                <td>{{ term.course.title }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin_delete_term', term_id=term.id) }}" style="display:inline;">
+                        <button type="submit" class="btn-small btn-danger" onclick="return confirm('O\'chirmoqchimisiz?')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

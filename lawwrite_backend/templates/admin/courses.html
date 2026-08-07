@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Kurslar — Admin{% endblock %}
+
+{% block content %}
+<section class="admin-panel">
+    <h1>📚 Kurslar</h1>
+    <a href="{{ url_for('admin_add_course') }}" class="btn-primary"><i class="fas fa-plus"></i> Yangi kurs qo'shish</a>
+    <a href="{{ url_for('admin_index') }}" class="btn-back"><i class="fas fa-arrow-left"></i> Admin panelga qaytish</a>
+    
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nomi</th>
+                <th>Daraja</th>
+                <th>Terminlar</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td>{{ course.icon }} {{ course.title }}</td>
+                <td>{{ course.level }} ({{ course.level_name }})</td>
+                <td>{{ course.terms|length }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_course', course_id=course.id) }}" class="btn-small btn-primary">Tahrirlash</a>
+                    <form method="POST" action="{{ url_for('admin_delete_course', course_id=course.id) }}" style="display:inline;">
+                        <button type="submit" class="btn-small btn-danger" onclick="return confirm('O\'chirmoqchimisiz?')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

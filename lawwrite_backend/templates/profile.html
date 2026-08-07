@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Profil — LawWrite{% endblock %}
+
+{% block content %}
+<section class="auth-form">
+    <h1>👤 Profil</h1>
+    
+    <form method="POST" action="{{ url_for('profile') }}">
+        <label for="fullname">To'liq ism</label>
+        <input type="text" id="fullname" name="fullname" value="{{ user.fullname }}" required>
+        
+        <label for="phone">Telefon raqam</label>
+        <input type="tel" id="phone" name="phone" value="{{ user.phone }}" required>
+        
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" disabled>
+        <small style="color: #888;">Emailni o'zgartirib bo'lmaydi</small>
+        
+        <hr style="margin: 20px 0; border: 1px solid #eee;">
+        
+        <h3>🔑 Parolni o'zgartirish</h3>
+        
+        <label for="current_password">Joriy parol</label>
+        <input type="password" id="current_password" name="current_password" placeholder="Joriy parolingizni kiriting">
+        
+        <label for="new_password">Yangi parol</label>
+        <input type="password" id="new_password" name="new_password" placeholder="Yangi parol (6 ta belgidan kam bo'lmasin)">
+        
+        <label for="confirm_password">Yangi parolni tasdiqlang</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Yangi parolni qayta kiriting">
+        
+        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Saqlash</button>
+    </form>
+    
+    <p class="auth-link"><a href="{{ url_for('dashboard') }}">⬅ Dashboardga qaytish</a></p>
+</section>
+{% endblock %}
