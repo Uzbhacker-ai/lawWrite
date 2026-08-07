@@ -543,7 +543,6 @@ def not_found(e):
 def server_error(e):
     return render_template('500.html'), 500
 
-# ==================== ISHGA TUSHIRISH ====================
 # =================== ISHGA TUSHIRISH ===================
 with app.app_context():
     db.create_all()
@@ -553,7 +552,4 @@ with app.app_context():
         admin.set_password('ya_prokuror2009')
         db.session.add(admin)
         db.session.commit()
-        print("✅ Admin yaratildi: tolibovkhalilulloh@gmail.com / ya_prokuror2009")
-
-# Railway uchun
-app = app
+        print("✅ Admin yaratildi")
